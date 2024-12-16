@@ -1,0 +1,19 @@
+{
+  "name": "pullmaster-ai",
+  "version": "1.0.0",
+  "description": "A powerful command-line interface tool that leverages AI to provide comprehensive Pull Request analysis. Pullmaster AI helps teams maintain code quality by offering intelligent code review insights, focusing on security, code quality, and best practices.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "pullmaster": "./bin/pullmaster"
+  },
+  "keywords": [],
+  "author": "Diego Maroto",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "commander": "^12.1.0"
+  }
+}

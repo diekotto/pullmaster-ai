@@ -1,44 +1,53 @@
-# pr-sage
+# pullmaster-ai
 
-A command-line interface tool that leverages AI to provide intelligent analysis of Pull Requests. PR Sage helps teams maintain code quality by offering automated code review insights, best practices recommendations, and potential issue detection.
+A powerful command-line interface tool that leverages AI to provide comprehensive Pull Request analysis. Pullmaster AI helps teams maintain code quality by offering intelligent code review insights, focusing on security, code quality, and best practices.
 
 ## Features
 
-- Deep analysis of Pull Request changes using AI
+- In-depth Pull Request analysis using AI
+- Security vulnerability scanning
 - Code quality assessment
-- Security vulnerability detection
-- Best practices recommendations
-- Integration with major Git platforms
-- Customizable rules and thresholds
+- Bug pattern detection
+- File-by-file change analysis
+- Commit history review
+- Dependency change tracking
+- Integration with GitHub (more platforms coming soon)
+- Customizable analysis rules
+- Markdown report generation
 - CI/CD pipeline integration support
 
 ## Installation
 
 ```bash
-npm install -g pr-sage
+npm install -g pullmaster-ai
 ```
 
 ## Quick Start
 
 ```bash
-pr-sage analyze <pull-request-url>
+pullmaster analyze github owner/repo pull-number
 ```
 
 ## Requirements
 
-- Node.js >= 18
+- Node.js >= 20
 - Git
-- Valid API credentials for your Git platform
+- GitHub API token with PR read permissions
 
 ## Configuration
 
-Create a `.prsagerc` file in your project root or use command line options:
+Create a `.pullmasterrc` file in your project root or use command line options:
 
 ```json
 {
-  "gitProvider": "github",
-  "apiToken": "<your-token>",
-  "customRules": []
+  "github": {
+    "token": "<your-github-token>"
+  },
+  "analysis": {
+    "maxFiles": 50,
+    "excludePaths": [],
+    "aiModel": "sonnet-3.5"
+  }
 }
 ```
 
@@ -47,36 +56,47 @@ Create a `.prsagerc` file in your project root or use command line options:
 ### analyze
 Performs a comprehensive analysis of a pull request:
 ```bash
-pr-sage analyze <pull-request-url> [options]
+pullmaster analyze github owner/repo pull-number [options]
 ```
 
 ### configure
 Sets up or updates your configuration:
 ```bash
-pr-sage configure
+pullmaster configure
 ```
 
 ### validate
 Validates your current configuration:
 ```bash
-pr-sage validate
+pullmaster validate
 ```
+
+## Analysis Output
+
+The tool provides a detailed analysis including:
+- Security vulnerabilities
+- Code quality issues
+- Potential bugs
+- Best practices recommendations
+- Dependencies impact
+- Suggested improvements
+
+Reports are generated in both JSON and Markdown formats.
 
 ## Configuration Options
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| gitProvider | Git platform provider (github, gitlab, bitbucket) | github |
-| apiToken | Authentication token for Git platform | - |
-| customRules | Array of custom analysis rules | [] |
-| maxFiles | Maximum number of files to analyze | 50 |
-| excludePaths | Paths to exclude from analysis | [] |
+| github.token | GitHub API token | - |
+| analysis.maxFiles | Maximum number of files to analyze | 50 |
+| analysis.excludePaths | Paths to exclude from analysis | [] |
+| analysis.aiModel | AI model to use for analysis | gpt-4 |
 
 ## Environment Variables
 
-- `PRSAGE_TOKEN`: Git platform API token
-- `PRSAGE_PROVIDER`: Git platform provider
-- `PRSAGE_CONFIG_PATH`: Custom path to config file
+- `PULLMASTER_GITHUB_TOKEN`: GitHub API token
+- `PULLMASTER_CONFIG_PATH`: Custom path to config file
+- `PULLMASTER_OUTPUT_DIR`: Custom path for analysis output
 
 ## Contributing
 
@@ -86,8 +106,8 @@ Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTIN
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/pr-sage.git
-cd pr-sage
+git clone https://github.com/yourusername/pullmaster-ai.git
+cd pullmaster-ai
 ```
 
 2. Install dependencies
@@ -97,7 +117,7 @@ npm install
 
 3. Create a local configuration file
 ```bash
-cp .prsagerc.example .prsagerc
+cp .pullmasterrc.example .pullmasterrc
 ```
 
 4. Run tests

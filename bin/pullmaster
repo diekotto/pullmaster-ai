@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+const { program } = require('commander');
+const { version } = require('../package.json');
+
+// Command handlers
+const analyze = require('../src/commands/analyze');
+const configure = require('../src/commands/configure');
+const validate = require('../src/commands/validate');
+
+program
+  .name('pullmaster')
+  .description('AI-powered Pull Request analysis tool')
+  .version(version);
+
+program
+  .command('analyze')
+  .description('Analyze a pull request')
+  .argument('<provider>', 'Git provider (github)')
+  .argument('<repo>', 'Repository in format owner/repo')
+  .argument('<pr>', 'Pull request number')
+  .option('-c, --config <path>', 'Path to config file')
+  .option('-o, --output <path>', 'Output directory for analysis results')
+  .option('--max-files <number>', 'Maximum number of files to analyze')
+  .option('--exclude <patterns...>', 'Patterns to exclude from analysis')
+  .action(analyze);
+
+program
+  .command('configure')
+  .description('Configure pullmaster settings')
+  .option('-g, --github-token <token>', 'Set GitHub API token')
+  .option('--init', 'Initialize configuration file')
+  .action(configure);
+
+program
+  .command('validate')
+  .description('Validate current configuration')
+  .option('-c, --config <path>', 'Path to config file to validate')
+  .action(validate);
+
+program.parse();
